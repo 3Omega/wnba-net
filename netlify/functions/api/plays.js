@@ -23,7 +23,7 @@ const queryDatabase = (db, query, params = []) => {
   });
 };
 
-router.get('/plays', async (req, res) => {
+router.get('/api/plays', async (req, res) => {
   try {
     const rows = await queryDatabase(pbpDb, 'SELECT * FROM wnba_pbp');
     res.json(rows);
@@ -32,7 +32,7 @@ router.get('/plays', async (req, res) => {
   }
 });
 
-router.get('/plays/:game_id', async (req, res) => {
+router.get('/api/plays/:game_id', async (req, res) => {
   const { game_id } = req.params;
   if (!game_id) {
     return res.status(400).json({ error: 'Game ID is required' });
@@ -47,7 +47,5 @@ router.get('/plays/:game_id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error', details: err.message });
   }
 });
-
-// Add other routes similarly...
 
 module.exports.handler = router.handler;
